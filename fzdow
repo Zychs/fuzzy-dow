@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# fzdow — open the fuzzyDOW window on THIS cli runtime's session.
+# Inside Claude Code (`! fzdow`) the session id comes from the environment;
+# from a plain shell it is the newest session for the current directory.
+set -euo pipefail
+here="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+projects="$HOME/.claude/projects"
+
+transcript=""
+if [ -n "${CLAUDE_CODE_SESSION_ID:-}" ]; then
+  transcript="$(ls "$projects"/*/"$CLAUDE_CODE_SESSION_ID".jsonl 2>/dev/null | head -1 || true)"
+fi
+if [ -z "$transcript" ]; then
+  proj="$projects/$(pwd | sed 's#[/.]#-#g')"
+  transcript="$(ls -t "$proj"/*.jsonl 2>/dev/null | head -1 || true)"
+fi
+if [ -z "$transcript" ]; then
+  echo "fzdow: no session found for $(pwd)" >&2
+  exit 1
+fi
+
+export DISPLAY="${DISPLAY:-:0}"
+export FZBUF="${FZBUF:-$here/buf/zig-out/bin/fzbuf}"
+exec python3 "$here/fzdow.py" "$transcript"

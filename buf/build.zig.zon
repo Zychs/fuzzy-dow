@@ -1,0 +1,8 @@
+.{
+    .name = .fzbuf,
+    .version = "0.1.0",
+    .fingerprint = 0x6918639842670cd9,
+    .minimum_zig_version = "0.17.0-dev.813+2153f8143",
+    .dependencies = .{},
+    .paths = .{ "build.zig", "build.zig.zon", "src" },
+}

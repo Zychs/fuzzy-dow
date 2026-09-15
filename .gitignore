@@ -1,0 +1,11 @@
+# build output and caches
+buf/.zig-cache/
+buf/zig-out/
+__pycache__/
+*.pyc
+
+# local data and generated files — never commit
+report.json
+fuzzydow.html
+Main.dc.html
+*.tmp
