@@ -1,54 +1,8 @@
 # fuzzy DOW (`fzdow`)
-
-A small desktop window for collecting the files an AI coding session edited.
-It reads one Claude Code session transcript, rebuilds every file that
-session's **Write** and **Edit** tool calls touched, holds them in a buffer,
-and lets you fuzzy-find one and keep it under a five-word name. The look
-follows journal-clip's dark palette, with a coral accent.
-
-## What works now
-
-- **Session scope.** `fzdow` opens on the session it was run from:
-  `$CLAUDE_CODE_SESSION_ID` when it's set (for example with `! fzdow` inside
-  Claude Code), otherwise the newest transcript for the current directory
-  under `~/.claude/projects/`.
-- **Mode prompt** (the first screen):
-  - `1  versioned out` buffers every revision of each file.
-  - `2  authoritative last in` buffers only each file's final state.
-- **Buffer** (`fzbuf`, written in Zig):
-  - Writes files to `~/test-buffer/<session>/`.
-  - Each file starts with a header line: creation time, edit count and a
-    tally, like `# fzdow · created … · edits 7  ||||/ ||`.
-  - The header goes below a `#!` or `<!doctype` first line, and JSON and
-    unknown file types get no header.
-  - The index (`index.tsv`) is replaced atomically, and running ingest again
-    adds nothing twice.
-- **Fuzzy card** (420×560, the same size as the prompt):
-  - Root field on top, query at the bottom.
-  - Directories column on the left, files column on the right, newest first.
-  - Matching letters must appear in order, gaps allowed.
-- **Keep.** Enter on a file flips to its details, with a suggested
-  five-word name. Enter again moves the file to
-  `~/test-buffer/kept/<name>.<ext>`. Names that aren't exactly five words,
-  names already taken, and files already kept are refused.
-- **`clump.py`** is a separate tool, not used by the window. It groups the
-  folders under `~` into related clumps and writes `~/.sesefus/clumps.tsv`
-  and `~/.sesefus/clump-report.json`.
-
-## Requirements
-
-- Linux with an X display (`DISPLAY`; the launcher defaults to `:0`).
-- Python 3 with Tk: `sudo apt install python3-tk`. No pip packages.
-- Zig `0.17.0-dev.813+2153f8143`. The buffer uses the 0.17 `std.Io` API, so
-  older releases won't build it.
-- Claude Code session transcripts in `~/.claude/projects/`.
-
+dedicated finder ; unlike macintosh os
 ## Install and start
 
-```sh
-git clone https://github.com/Zychs/fuzzy-dow.git ~/fuzzyDOW
-cd ~/fuzzyDOW/buf && zig build --release=safe   # builds buf/zig-out/bin/fzbuf
-cd ~/fuzzyDOW && ./fzdow                          # opens the window
+unreleased
 ```
 
 To start it as `fzdow` from anywhere, add an alias:
